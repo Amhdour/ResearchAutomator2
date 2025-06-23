@@ -1,0 +1,161 @@
+build **Autonomous Research Agent (AutoGPT-style) using only CloudGROQ for inference** — fully modular, production-ready, 2025+ standard.
+
+---
+
+# Atomic Step-by-Step Build Instructions
+
+---
+
+## 1. Project Setup & Environment
+
+1.1 Create your Python project environment
+1.2 Install necessary packages: requests, langchain (optional), chromadb, faiss, streamlit 
+1.3 Set up CloudGROQ API access and store API keys securely (env variables or secrets manager)
+1.4 Create project directory structure: `/modules`, `/tools`, `/memory`, `/scripts`
+
+---
+
+## 2. Define Core Agent Architecture
+
+2.1 Design high-level agent architecture diagram
+2.2 Define main components and interfaces:
+
+* GoalParser
+* Planner (CloudGROQ-powered)
+* Retriever
+* LLMTools (CloudGROQ prompt pipelines)
+* MemoryManager
+* CitationEngine
+* ExecutionAgent
+* SelfCritique
+* ReportCompiler
+
+---
+
+## 3. Build Goal Parsing Module
+
+3.1 Create `GoalParser` function/class
+3.2 Define input schema: raw user goal string
+3.3 Write CloudGROQ prompt template to parse and split goal into subgoals
+3.4 Implement API call wrapper for CloudGROQ inference
+3.5 Test with example goals, validate subgoal extraction
+
+---
+
+## 4. Implement Retriever Module
+
+4.1 Select retrieval sources (web search API, PDF loader, Arxiv API, etc.)
+4.2 Implement web search wrapper (e.g., DuckDuckGo/SerpAPI)
+4.3 Implement document loaders for PDFs and websites
+4.4 Write utility functions to extract clean text from retrieved docs
+4.5 Create retrieval interface for agent to query multiple sources
+4.6 Test retrieval with sample queries and documents
+
+---
+
+## 5. Set Up Memory Store
+
+5.1 Choose memory backend (ChromaDB or FAISS)
+5.2 Create memory interface to store/retrieve embeddings + metadata
+5.3 Implement text embedding function using CloudGROQ embedding API or local model if supported
+5.4 Integrate memory with Retriever to avoid redundant retrieval
+5.5 Test memory insertion and similarity search
+
+---
+
+## 6. Build LLM Tools Module (CloudGROQ)
+
+6.1 Design prompt templates for:
+
+* Planning tasks
+* Summarization
+* Citation extraction
+* Self-critique and refinement
+  6.2 Wrap CloudGROQ API calls for text generation with dynamic prompts
+  6.3 Implement chaining logic for multi-step prompt pipelines
+  6.4 Validate generation outputs on sample prompts
+
+---
+
+## 7. Build Planner Module (CloudGROQ-powered)
+
+7.1 Create `Planner` that takes parsed goals and creates ordered task plan/subtasks
+7.2 Use CloudGROQ to generate task plans and subgoal dependencies
+7.3 Implement re-planning on failures or newly discovered info
+7.4 Test with complex multi-step research goals
+
+---
+
+## 8. Develop Citation Engine
+
+8.1 Define citation metadata format (source URL, title, date, authors)
+8.2 Implement source metadata extractor from retrieved documents
+8.3 Use CloudGROQ to link summary claims to exact sources
+8.4 Generate formatted citations in Markdown/HTML
+8.5 Test citation linking accuracy
+
+---
+
+## 9. Create Execution Agent Loop
+
+9.1 Design main control loop:
+
+* Take current plan step
+* Call Retriever / LLMTools to execute task
+* Store results in Memory
+* Self-evaluate via SelfCritique module
+* Retry or move to next step
+  9.2 Implement task failure detection and retry policy
+  9.3 Log agent decisions and outputs for debugging
+  9.4 Test end-to-end agent loop on simple research queries
+
+---
+
+## 10. Build Self-Critique & Refinement Module
+
+10.1 Design prompt for agent to critique own outputs using CloudGROQ
+10.2 Implement refinement loop to request clarifications or corrections
+10.3 Integrate with Execution Agent loop to enable dynamic improvements
+10.4 Test self-critique with deliberately flawed summaries
+
+---
+
+## 11. Compile Final Report
+
+11.1 Aggregate all summaries, citations, and plan traces
+11.2 Generate a clean, well-formatted Markdown report with linked references
+11.3 Optionally implement export to PDF/HTML
+11.4 Test report generation with real research runs
+
+---
+
+## 12. Create User Interface (Optional)
+
+12.1 Build a CLI interface to input goals and display outputs
+12.2 Optionally build Streamlit or FastAPI Web UI for better usability
+12.3 Implement configuration options (API keys, retrieval sources)
+12.4 Test UI workflows end-to-end
+
+---
+
+## 13. Testing, Evaluation & Iteration
+
+13.1 Run unit tests for all modules independently
+13.2 Conduct integration tests for end-to-end agent workflows
+13.3 Benchmark on varied research topics
+13.4 Collect failure cases and refine prompt templates and retry policies
+13.5 Document architecture and usage instructions
+
+---
+
+## 14. (Advanced) Extensions & Improvements
+
+14.1 Multi-agent orchestration (planner + researcher + writer agents)
+14.2 Persistent knowledge graph or LangGraph integration
+14.3 Zotero / academic metadata sync for advanced citation management
+14.4 Fine-tuning CloudGROQ models for summarization or citation tasks
+14.5 Add natural language goal refinement mid-task
+
+---
+
+If you want, I can **generate example code templates** for any module (like `GoalParser` or `Planner`) or **expand a particular step** with detailed instructions and code snippets. Just ask!
